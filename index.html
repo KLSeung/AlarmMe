@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Digital Clock</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet">
+    </script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="badge">
+        CLOCKLY
+      </div>
+
+      <div class="clock">
+        <div class="alarmTime">
+          <span>Alarm: </span>
+          <span id="alarmHour">--</span>
+          <span id="alarmMinute">--</span>
+          <span id="alarmSecond">--</span>
+        </div>
+        <div class="time">
+          <span id="hour"></span>
+          <span id="minute"></span>
+          <span id="second"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="alarm">
+      <div class="alarmText">
+        <span>Set an Alarm:</span>
+      </div>
+      <div class="inputBox">
+        <input type="number" id="hourInput" min="0">
+      </div>
+      <div class="alarmText">
+          <span>Hrs</span>
+      </div>
+      <div class="inputBox">
+          <input type="number" id="minuteInput" min="0">
+      </div>
+      <div class="alarmText">
+          <span>Mins</span>
+      </div>
+    </div>
+
+    <div class="sound">
+      <div class="soundText">
+        <span>Alarm Sound:</span>
+      </div>
+      <div class="soundOptBox">
+        <select id="soundOpt">
+          <option value="Bwak">Bwak Bwak Bwaak</option>
+          <option value="Ck">Cock-A-Doodle-Doo</option>
+          <option value="Military">Military Alarm</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="alarmButton">
+        <button type="button" id="setAlarm" onclick="alarmSet()">Set Alarm</button>
+    </div>
+
+        <script src="app.js" charset="utf-8"></script>
+  </body>
+</html>

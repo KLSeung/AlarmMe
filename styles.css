@@ -1,0 +1,138 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background: url(img/background.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
+.main{
+  background: #995757;
+  width: 400px;
+  border-radius: 17px;
+  height: 175px;
+  margin: 100px auto;
+  position: relative;
+  padding: 30px;
+  box-shadow: 0px 0px 0px 2px rgba(0,0,0,0.75);
+}
+
+
+.badge{
+  width: 96px;
+  background: #e66357;
+  color: white;
+  padding: 5px 10px;
+  font-family: sans-serif;
+  font-weight: bold;
+  position: absolute;
+  top: -15px;
+  left: 40%;
+}
+
+.clock{
+  background:#FFFFFF;
+  border-radius: 4px;
+}
+
+.alarmTime{
+  text-align: right;
+  font-size: 17px;
+  height: 100%;
+  font-family: Orbitron;
+  /*color: #FF472E;--> this is for the red color*/
+  color: rgba(0, 0, 0, 0.2);
+  padding-right: 26px;
+  padding-top: 15px;
+}
+
+.time{
+  text-align: center;
+  font-size: 55px;
+  height: 100%;
+  font-family: Orbitron;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.alarm{
+  text-align: center;
+  font-family: Orbitron;
+  font-size: 30px;
+  padding-bottom: 40px;
+}
+
+.inputBox{
+  display: inline-block;
+}
+
+.alarmText{
+  display: inline-block;
+}
+
+.sound{
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: Orbitron;
+  padding-bottom: 80px;
+}
+
+.soundText{
+  display: inline-block;
+  font-size: 30px;
+}
+
+.soundOptBox{
+  display: inline-block;
+  padding-left: 5px;
+}
+
+select{
+  cursor:pointer;
+  color:black;
+  border:1px solid #ccc;
+  width:330px;
+  height:55px;
+  font-size:inherit;
+  text-align:center;
+  font-family:inherit;
+}
+
+option{
+  font-size:30px;
+  text-align:center;
+}
+
+input[type="number"]{
+  width:83px;
+  height:47px;
+  font-size:30px;
+  text-align:center;
+  font-family:Orbitron;
+  padding-left:10px;
+  border:1px solid #ccc;
+  border-radius:3px;
+}
+
+
+#setAlarm{
+  cursor:pointer;
+  background-color:#26ACF8;
+  padding: 15px 32px;
+  margin: 4px 2px;
+  text-align:center;
+  color:#FFFFFF;
+  font-size: 18px;
+  margin: auto;
+  display: block;
+  border-radius:3px;
+  border-color: #26ACF8;
+}
