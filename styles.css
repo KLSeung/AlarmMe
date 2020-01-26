@@ -26,7 +26,6 @@ body{
 
 
 .badge{
-  width: 96px;
   background: #e66357;
   color: white;
   padding: 5px 10px;
@@ -135,4 +134,8 @@ input[type="number"]{
   display: block;
   border-radius:3px;
   border-color: #26ACF8;
+}
+
+.centeredText{
+  text-align: center;
 }
