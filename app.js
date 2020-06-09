@@ -1,47 +1,72 @@
 
+//  const clock = {
+//   hours: new Date().getHours(),
+//   mins: new Date().getMinutes(),
+//   secs: new Date().getSeconds(),
+//   setTime: function() {
+//       if (this.hours < 10) {
+//         this.hours = "0" + this.hours;
+//       }
+//       if (this.mins < 10) {
+//         this.mins = "0" + this.mins;
+//       }
+//       if (this.secs < 10) {
+//         this.secs = "0" + this.secs;
+//       }
+
+//       return this.hours
+//       return this.mins
+//       return this.secs
+
+//       setInterval(this.setTime(), 100);
+//   }
+// }
+// document.getElementById('hour').innerHTML = clock.hours;
+// document.getElementById('minute').innerHTML = ":" + clock.mins;
+// document.getElementById('second').innerHTML = ":" + clock.secs;
+
+// clock.setTime()
+
+
+const Time = {
+  alarmHour: "",
+  alarmMinutes: "",
+  hour: "",
+  mins: "",
+  secs: ""
+}
  const clock = function() {
 
-  const fullDate = new Date();
-  var hours = fullDate.getHours();
-  var mins = fullDate.getMinutes();
-  var secs = fullDate.getSeconds();
+  const date = new Date();
+   Time.hour = date.getHours()
+   Time.mins = date.getMinutes()
+   Time.secs = date.getSeconds()
 
-
-  if (hours < 10) {
-    hours = "0" + hours;
+  if (Time.hour < 10) {
+    Time.hour = "0" + Time.hour;
   }
-  if (mins < 10) {
-    mins = "0" + mins;
+  if (Time.mins < 10) {
+    Time.mins = "0" + Time.mins;
   }
-  if (secs < 10) {
-    secs = "0" + secs;
+  if (Time.secs < 10) {
+    Time.secs = "0" + Time.secs;
   }
 
-  document.getElementById('hour').innerHTML = hours;
-  document.getElementById('minute').innerHTML = ":" + mins;
-  document.getElementById('second').innerHTML = ":" + secs;
-
-  return hours;
-  return mins;
-  return secs;
-}
-
-setInterval(clock,100);
-
-const alarm = function() {
+  document.getElementById('hour').innerHTML = Time.hour;
+  document.getElementById('minute').innerHTML = ":" + Time.mins;
+  document.getElementById('second').innerHTML = ":" + Time.secs;
 
   document.getElementById('hourInput').addEventListener('input', function (h){
 
-    if (hourInput.value > 23){
-      h.target.value = 23;
-    }
-
-    else if (hourInput.value < 0){
-      h.target.value = 0;
-    }
-  })
-
-
+  if (hourInput.value > 23){
+    h.target.value = 23;
+  }
+  
+  else if (hourInput.value < 0){
+    h.target.value = 0;
+  }
+})
+  
   document.getElementById('minuteInput').addEventListener('input', function (m){
 
     if (minuteInput.value > 60){
@@ -52,52 +77,54 @@ const alarm = function() {
       m.target.value = 0;
     }
   })
+
+  return Time.hour;
+  return Time.mins;
+  return Time.secs;
 }
 
-const alarmSet = function(){
+setInterval(clock, 100);
 
-  const fullDate = new Date();
-  var hours = fullDate.getHours();
-  var mins = fullDate.getMinutes();
-  var secs = fullDate.getSeconds();
+
+const setAlarm = function(){
 
   const hourInputValue = document.getElementById('hourInput').value;
   const minuteInputValue = document.getElementById('minuteInput').value;
 
-  var alarmHours = hours + parseInt(hourInputValue);
-  var alarmMinutes = mins + parseInt(minuteInputValue);
-  const alarmSeconds = secs;
+  Time.alarmHour = Time.hour + parseInt(hourInputValue);
+  Time.alarmMinutes = Time.mins + parseInt(minuteInputValue);
+  Time.alarmSeconds = Time.secs
 
-  if (isNaN(alarmHours)) {
-    alarmHours = hours ;
-  }
-
-  else if (alarmHours > 24){
-    alarmHours = alarmHours - 24;
+  if (isNaN(Time.alarmHour)) {
+    Time.alarmHour = Time.hour ;
   }
 
-  if (isNaN(alarmMinutes)) {
-    alarmMinutes = mins;
+  else if (Time.alarmHour > 24){
+    Time.alarmHour= Time.alarmHour - 24;
   }
 
-  else if (alarmMinutes > 59) {
-    alarmMinutes = alarmMinutes - 60;
-    alarmHours = alarmHours + 1;
+  if (isNaN(Time.alarmMinutes)) {
+    Time.alarmMinutes = Time.mins;
   }
 
-  if (alarmHours < 10) {
-    alarmHours = "0" + alarmHours;
-  }
-  if (alarmMinutes < 10) {
-    alarmMinutes = "0" + alarmMinutes;
-  }
-  if (alarmSeconds < 10) {
-    alarmSeconds = "0" + alarmSeconds;
+  else if (Time.alarmMinutes > 59) {
+    Time.alarmMinutes = Time.alarmMinutes - 60;
+    Time.alarmHour = Time.alarmHour + 1;
   }
 
-  document.getElementById('alarmHour').innerHTML = alarmHours;
-  document.getElementById('alarmMinute').innerHTML = ":" + alarmMinutes;
-  document.getElementById('alarmSecond').innerHTML = ":" + alarmSeconds;
+  if (Time.alarmHours < 10) {
+    Time.alarmHour = "0" + Time.alarmHour;
+  }
+  // if (Time.alarmMinutes < 10) {
+  //   Time.alarmMinutes = "0" + Time.alarmMinutes;
+  // }
+  // if (Time.secs < 10) {
+  //   Time.secs = "0" + Time.secs;
+  // }
+
+  document.getElementById('alarmHour').innerHTML = Time.alarmHour;
+  document.getElementById('alarmMinute').innerHTML = ":" + Time.alarmMinutes;
+  document.getElementById('alarmSecond').innerHTML = ":" + Time.alarmSeconds;
 
   const alarmRow = document.getElementsByClassName("alarmTime");
   for (var i=0; i<alarmRow.length; i++){
@@ -106,20 +133,19 @@ const alarmSet = function(){
 
 
   const alarmSound = document.getElementById('soundOpt');
-  const alarmSoundUser = alarmSound.options[alarmSound.selectedIndex].value;
+  Time.alarmSoundUser = alarmSound.options[alarmSound.selectedIndex].value;
 
-  console.log(alarmSoundUser);
-
+  console.log(Time.alarmSoundUser);
 
 }
 
 const ringAlarm = function (){
-  if (hours == alarmHours && mins == alarmMinutes && secs == alarmSeconds){
-    console.log(alarmSoundUser);
+  if (Time.hour == Time.alarmHour && Time.mins == Time.alarmMinutes && Time.secs == Time.alarmSeconds){
+    console.log(Time.alarmSoundUser);
 }
 }
-
+setInterval(ringAlarm, 100)
 
 clock();
-alarm();
 ringAlarm();
+
