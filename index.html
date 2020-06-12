@@ -17,8 +17,8 @@
         <div class="alarmTime">
           <span>Alarm: </span>
           <span id="alarmHour">--</span>
-          <span id="alarmMinute">--</span>
-          <span id="alarmSecond">--</span>
+          <span id="alarmMinutes">--</span>
+          <span id="alarmSeconds">--</span>
         </div>
         <div class="time">
           <span id="hour"></span>
@@ -28,10 +28,10 @@
       </div>
     </div>
 
-    <div class="buttons">
-      <button>Cancel</button>
-      <button>Snooze</button>
-      <button>Reset Alarm</button>
+    <div class="buttonContainer">
+      <button class="button" onClick="cancelSound()">Cancel</button>
+      <button class="button">Snooze</button>
+      <button class="button">Reset Alarm</button>
     </div>
 
     <div class="alarm">
@@ -65,9 +65,7 @@
       </div>
     </div>
 
-    <div class="alarmButton">
-        <button type="button" id="setAlarm" onclick="setAlarm()">Set Alarm</button>
-    </div>
+        <button type="button" id="alarmButton" onclick="setAlarm()">Set Alarm</button>
 
         <script src="app.js" charset="utf-8"></script>
   </body>

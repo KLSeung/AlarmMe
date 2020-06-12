@@ -18,7 +18,7 @@ body{
   width: 400px;
   border-radius: 17px;
   height: 175px;
-  margin: 100px auto;
+  margin: 100px auto 50px auto;
   position: relative;
   padding: 30px;
   box-shadow: 0px 0px 0px 2px rgba(0,0,0,0.75);
@@ -39,6 +39,19 @@ body{
 .clock{
   background:#FFFFFF;
   border-radius: 4px;
+}
+
+.buttonContainer{
+  float:left;
+  width:100%;
+  text-align:center;
+  padding-bottom: 50px;
+}
+
+.button{
+  cursor: pointer;
+  padding: 13px 32px;
+  display:inline-block;
 }
 
 .alarmTime{
@@ -122,14 +135,14 @@ input[type="number"]{
 }
 
 
-#setAlarm{
+#alarmButton{
   cursor:pointer;
   background-color:#26ACF8;
-  padding: 15px 32px;
+  padding: 13px 32px;
   margin: 4px 2px;
   text-align:center;
   color:#FFFFFF;
-  font-size: 18px;
+  font-size: 16px;
   margin: auto;
   display: block;
   border-radius:3px;

@@ -9,7 +9,8 @@ const Time = {
     modernAlarm: new Audio('audio/Classic_Alarm.mp3'),
     ckAlarm: new Audio('audio/Ck_Alarm.mp3'),
     militaryAlarm: new Audio('audio/Military_Alarm.mp3')
-  }
+  },
+  alarmSoundOn: false
 }
 
  const clock = function() {
@@ -60,9 +61,11 @@ const Time = {
 setInterval(clock, 100);
 
 
+
 const setAlarm = function(){
   const hourInputValue = document.getElementById('hourInput').value;
   const minuteInputValue = document.getElementById('minuteInput').value;
+
 
   Time.alarmHour = Time.hour + parseInt(hourInputValue);
   Time.alarmMinutes = Time.mins + parseInt(minuteInputValue);
@@ -81,28 +84,31 @@ const setAlarm = function(){
   }
 
   else if (Time.alarmMinutes > 59) {
-    Time.alarmMinutes = Time.alarmMinutes - 60;
-    Time.alarmHour = Time.alarmHour + 1;
+     Time.alarmMinutes = Time.alarmMinutes - 60;
+     Time.alarmHour = Time.alarmHour + 1;
   }
 
-  if (Time.alarmHours < 10) {
-    Time.alarmHour = "0" + Time.alarmHour;
+  if(Time.alarmMinutes < 10 ){
+    Time.alarmMinutes= "0" + Time.alarmMinutes
+    
   }
-
+  
+   if (Time.alarmHour < 10) {
+     Time.alarmHour = "0" + Time.alarmHour;
+    
+   }
+  
   document.getElementById('alarmHour').innerHTML = Time.alarmHour;
-  document.getElementById('alarmMinute').innerHTML = ":" + Time.alarmMinutes;
-  document.getElementById('alarmSecond').innerHTML = ":" + Time.alarmSeconds;
+  document.getElementById('alarmMinutes').innerHTML = ":" + Time.alarmMinutes;
+  document.getElementById('alarmSeconds').innerHTML = ":" + Time.alarmSeconds;
 
   const alarmRow = document.getElementsByClassName("alarmTime");
   for (var i=0; i<alarmRow.length; i++){
     alarmRow[i].style.color = "#FF472E";
   }
 
-
   const alarmSound = document.getElementById('soundOpt');
   Time.alarmSoundUser = alarmSound.options[alarmSound.selectedIndex].value;
-
-  console.log(Time.alarmSoundUser);
 
 }
 
@@ -112,22 +118,34 @@ const ringAlarm = function (){
     if(Time.alarmSoundUser === "modern"){
       setInterval(function() {Time.alarmSounds.modernAlarm.play()},1000)
       Time.alarmSounds.modernAlarm.volume = 0.2
+      Time.alarmSoundOn = true
     }
     else if(Time.alarmSoundUser === "ck"){
       setInterval(function() {Time.alarmSounds.ckAlarm.play()},1000)
       Time.alarmSounds.ckAlarm.volume = 0.2
+      Time.alarmSoundOn = true
     }
     else if(Time.alarmSoundUser === "military"){
       setInterval(function() {Time.alarmSounds.militaryAlarm.play()},1000)
       Time.alarmSounds.militaryAlarm.volume = 0.2
+      Time.alarmSoundOn = true
     }
   }
 }
 
+const cancelSound = function (){
+  if (Time.alarmSoundOn){
+    Time.alarmSoundUser === null
+    Time.alarmSoundOn = false
+    console.log(Time.alarmSoundOn)
+  }
+  else {
+    console.log("There is no alarm ringing!")
+  }
+}
 
 
 setInterval(ringAlarm, 100)
-
 clock();
 ringAlarm();
 
