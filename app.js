@@ -1,40 +1,17 @@
-
-//  const clock = {
-//   hours: new Date().getHours(),
-//   mins: new Date().getMinutes(),
-//   secs: new Date().getSeconds(),
-//   setTime: function() {
-//       if (this.hours < 10) {
-//         this.hours = "0" + this.hours;
-//       }
-//       if (this.mins < 10) {
-//         this.mins = "0" + this.mins;
-//       }
-//       if (this.secs < 10) {
-//         this.secs = "0" + this.secs;
-//       }
-
-//       return this.hours
-//       return this.mins
-//       return this.secs
-
-//       setInterval(this.setTime(), 100);
-//   }
-// }
-// document.getElementById('hour').innerHTML = clock.hours;
-// document.getElementById('minute').innerHTML = ":" + clock.mins;
-// document.getElementById('second').innerHTML = ":" + clock.secs;
-
-// clock.setTime()
-
-
 const Time = {
   alarmHour: "",
   alarmMinutes: "",
   hour: "",
   mins: "",
-  secs: ""
+  secs: "",
+  alarmSoundUser: "",
+  alarmSounds: {
+    modernAlarm: new Audio('audio/Classic_Alarm.mp3'),
+    ckAlarm: new Audio('audio/Ck_Alarm.mp3'),
+    militaryAlarm: new Audio('audio/Military_Alarm.mp3')
+  }
 }
+
  const clock = function() {
 
   const date = new Date();
@@ -69,7 +46,7 @@ const Time = {
   
   document.getElementById('minuteInput').addEventListener('input', function (m){
 
-    if (minuteInput.value > 60){
+    if (minuteInput.value >= 60){
       m.target.value = 59;
     }
 
@@ -78,16 +55,12 @@ const Time = {
     }
   })
 
-  return Time.hour;
-  return Time.mins;
-  return Time.secs;
 }
 
 setInterval(clock, 100);
 
 
 const setAlarm = function(){
-
   const hourInputValue = document.getElementById('hourInput').value;
   const minuteInputValue = document.getElementById('minuteInput').value;
 
@@ -115,12 +88,6 @@ const setAlarm = function(){
   if (Time.alarmHours < 10) {
     Time.alarmHour = "0" + Time.alarmHour;
   }
-  // if (Time.alarmMinutes < 10) {
-  //   Time.alarmMinutes = "0" + Time.alarmMinutes;
-  // }
-  // if (Time.secs < 10) {
-  //   Time.secs = "0" + Time.secs;
-  // }
 
   document.getElementById('alarmHour').innerHTML = Time.alarmHour;
   document.getElementById('alarmMinute').innerHTML = ":" + Time.alarmMinutes;
@@ -141,9 +108,24 @@ const setAlarm = function(){
 
 const ringAlarm = function (){
   if (Time.hour == Time.alarmHour && Time.mins == Time.alarmMinutes && Time.secs == Time.alarmSeconds){
-    console.log(Time.alarmSoundUser);
+    
+    if(Time.alarmSoundUser === "modern"){
+      setInterval(function() {Time.alarmSounds.modernAlarm.play()},1000)
+      Time.alarmSounds.modernAlarm.volume = 0.2
+    }
+    else if(Time.alarmSoundUser === "ck"){
+      setInterval(function() {Time.alarmSounds.ckAlarm.play()},1000)
+      Time.alarmSounds.ckAlarm.volume = 0.2
+    }
+    else if(Time.alarmSoundUser === "military"){
+      setInterval(function() {Time.alarmSounds.militaryAlarm.play()},1000)
+      Time.alarmSounds.militaryAlarm.volume = 0.2
+    }
+  }
 }
-}
+
+
+
 setInterval(ringAlarm, 100)
 
 clock();
