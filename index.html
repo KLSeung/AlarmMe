@@ -39,13 +39,23 @@
         <span>Set an Alarm:</span>
       </div>
       <div class="inputBox">
-        <input type="number" id="hourInput" min="0">
+        <input 
+          type="number"
+          id="hourInput" 
+          pattern=" 0+\.[0-9]*[1-9][0-9]*$" 
+          onkeypress="return event.charCode >= 48 && event.charCode <= 57" 
+          min="0"/>
       </div>
       <div class="alarmText">
           <span>Hrs</span>
       </div>
       <div class="inputBox">
-          <input type="number" id="minuteInput" min="0">
+          <input 
+            type="number" 
+            id="minuteInput" 
+            pattern=" 0+\.[0-9]*[1-9][0-9]*$" 
+            onkeypress="return event.charCode >= 48 && event.charCode <= 57" 
+            min="0"/>
       </div>
       <div class="alarmText">
           <span>Mins</span>

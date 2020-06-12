@@ -48,28 +48,33 @@ const Time = {
   document.getElementById('minute').innerHTML = ":" + Time.mins;
   document.getElementById('second').innerHTML = ":" + Time.secs;
 
-  document.getElementById('hourInput').addEventListener('input', function (h){
+  // document.getElementById('hourInput').addEventListener('input', function (h){
+  //   h.target.value = h.target.value.replace(/^0+(?=\d)/,'');
+  //   if (hourInput.value > 23){
+  //     h.target.value = 23;
+  //   }
+  // })
 
-  if (hourInput.value > 23){
-    h.target.value = 23;
+  document.getElementById('hourInput').onblur = function (h){
+    h.target.value = h.target.value.replace(/^0+(?=\d)/,'');
+    if (hourInput.value > 23){
+      h.target.value = 23;
+    }
   }
   
-  else if (hourInput.value < 0){
-    h.target.value = 0;
-  }
-})
-  
-  document.getElementById('minuteInput').addEventListener('input', function (m){
+  // document.getElementById('minuteInput').addEventListener('input', function (m){
+  //   m.target.value = m.target.value.replace(/^0+(?=\d)/,'');
+  //   if (minuteInput.value >= 60){
+  //     m.target.value = 59;
+  //   }
+  // })
 
-    if (minuteInput.value >= 60){
+  document.getElementById('minuteInput').onblur = function (m){
+    m.target.value = m.target.value.replace(/^0+(?=\d)/,'');
+    if (minuteInput.value >=60){
       m.target.value = 59;
     }
-
-    else if (minuteInput.value < 0){
-      m.target.value = 0;
-    }
-  })
-
+  }
 }
 
 setInterval(clockTick, 100);
