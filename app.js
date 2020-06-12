@@ -82,12 +82,12 @@ setInterval(clockTick, 100);
 const setAlarm = function() {
   const hourInputValue = document.getElementById('hourInput').value;
   const minuteInputValue = document.getElementById('minuteInput').value;
-
+  
 
   Time.alarmHour = parseInt(Time.hour) + parseInt(hourInputValue);
   Time.alarmMinutes = parseInt(Time.mins) + parseInt(minuteInputValue);
   Time.alarmSeconds = Time.secs;
-
+  
   if (isNaN(Time.alarmHour)) {
     Time.alarmHour = Time.hour ;
   }
@@ -105,16 +105,15 @@ const setAlarm = function() {
      Time.alarmHour = Time.alarmHour + 1;
   }
 
-  if(Time.alarmMinutes < 10 ){
+  if(Time.alarmMinutes < 10 && typeof Time.alarmMinutes === "number" ){
     Time.alarmMinutes= "0" + Time.alarmMinutes;
-    
   }
   
-   if (Time.alarmHour < 10) {
+   if (Time.alarmHour < 10 && typeof Time.alarmHour === "number") {
      Time.alarmHour = "0" + Time.alarmHour;
-    
-   }
-  
+  }
+
+ 
   document.getElementById('alarmHour').innerHTML = Time.alarmHour;
   document.getElementById('alarmMinutes').innerHTML = ":" + Time.alarmMinutes;
   document.getElementById('alarmSeconds').innerHTML = ":" + Time.alarmSeconds;
@@ -132,6 +131,7 @@ const setAlarm = function() {
 const ringAlarm = function() {
   if (Time.hour == Time.alarmHour && Time.mins == Time.alarmMinutes && Time.secs == Time.alarmSeconds){
     Time.alarmSoundOn = true;
+    document.title = "Alarm is Ringing!"
     if(Time.alarmSoundUser === "modern"){
       // modInterv = setInterval(function() {Time.alarmSounds.modernAlarm.play()},1000);
       Time.alarmSounds.modernAlarm.play()
