@@ -10,20 +10,20 @@ const Time = {
     ckAlarm: new Audio('audio/Ck_Alarm.mp3'),
     militaryAlarm: new Audio('audio/Military_Alarm.mp3')
   },
-  // cancelSounds: function() {
-  //   if(this.alarmSoundUser === "modern"){
-  //     Time.alarmSounds.modernAlarm.pause();
-  //     Time.alarmSounds.modernAlarm.currentTime = 0;
-  //   }
-  //   if(this.alarmSoundUser === "ck"){
-  //     Time.alarmSounds.ckAlarm.pause();
-  //     Time.alarmSounds.ckAlarm.currentTime = 0;
-  //   }
-  //   if(this.alarmSoundUser === "military"){
-  //     Time.alarmSounds.militaryAlarm.pause();
-  //     Time.alarmSounds.militaryAlarm.currentTime = 0;
-  //   }
-  // },
+  cancelSound: function(){
+    if(this.alarmSoundUser === "modern"){
+      this.alarmSounds.modernAlarm.pause()
+      this.alarmSounds.modernAlarm.currentTime = 0;
+  }
+    else if(Time.alarmSoundUser === "ck"){
+      this.alarmSounds.ckAlarm.pause()
+      this.alarmSounds.ckAlarm.currentTime = 0;
+  }
+    else if(this.alarmSoundUser === "military"){
+      this.alarmSounds.militaryAlarm.pause()
+      this.alarmSounds.militaryAlarm.currentTime = 0;
+    }
+  },
   alarmSoundOn: false
 }
 
@@ -135,10 +135,14 @@ const ringAlarm = function() {
     }
     else if(Time.alarmSoundUser === "ck"){
       // ckInterv = setInterval(function() {Time.alarmSounds.ckAlarm.play()},1000);
+      Time.alarmSounds.ckAlarm.play()
+      Time.alarmSounds.ckAlarm.loop = true
       Time.alarmSounds.ckAlarm.volume = 0.2;
     }
     else if(Time.alarmSoundUser === "military"){
       // milInterv = setInterval(function() {Time.alarmSounds.militaryAlarm.play()},1000);
+      Time.alarmSounds.militaryAlarm.play()
+      Time.alarmSounds.militaryAlarm.loop = true
       Time.alarmSounds.militaryAlarm.volume = 0.2;
     }
   }
@@ -148,26 +152,9 @@ const cancelAlarm = function() {
   if (Time.alarmSoundOn){
     Time.alarmSoundUser === null;
     Time.alarmSoundOn = false;
-    Time.alarmSounds.modernAlarm.pause();
-    Time.alarmSounds.modernAlarm.currentTime = 0;
-      
-  //   if(Time.alarmSoundUser === "modern"){
-  //     clearInterval(modInterv);
-  //     Time.alarmSounds.modernAlarm.pause();
-  //     Time.alarmSounds.modernAlarm.currentTime = 0;
-  //   }
-  //   else if(Time.alarmSoundUser === "ck"){
-  //     clearInterval(ckInterv);
-  //     Time.alarmSounds.ckAlarm.pause();
-  //     Time.alarmSounds.ckAlarm.currentTime = 0;
-  //   }
-  //   else if(Time.alarmSoundUser === "military"){
-  //     clearInterval(milInterv);
-  //     Time.alarmSounds.militaryAlarm.pause();
-  //     Time.alarmSounds.militaryAlarm.currentTime = 0;
-  // }
+    Time.cancelSound()
+    resetAlarm()
 }
-
 else {
   window.alert("There is no alarm ringing!");
   }
@@ -176,10 +163,10 @@ else {
 
 const snoozeAlarm = function() {
   if (Time.alarmSoundOn){
-
     Time.alarmSoundOn = false;
     Time.alarmMinutes = Time.alarmMinutes + 5
     document.getElementById('alarmMinutes').innerHTML = Time.alarmMinutes;
+    Time.cancelSound()
   }
   else {
     window.alert("There is no alarm ringing!");
