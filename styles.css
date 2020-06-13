@@ -49,6 +49,10 @@ body{
 }
 
 .button{
+  background-color: #E23A63;
+  border-radius:3px;
+  border-color: #E23A63;
+  color: white;
   cursor: pointer;
   padding: 13px 32px;
   display:inline-block;

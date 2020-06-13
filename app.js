@@ -12,22 +12,32 @@ const Time = {
   },
   cancelSound: function(){
     if(this.alarmSoundUser === "modern"){
-      this.alarmSounds.modernAlarm.pause()
+      this.alarmSounds.modernAlarm.pause();
       this.alarmSounds.modernAlarm.currentTime = 0;
   }
     else if(Time.alarmSoundUser === "ck"){
-      this.alarmSounds.ckAlarm.pause()
+      this.alarmSounds.ckAlarm.pause();
       this.alarmSounds.ckAlarm.currentTime = 0;
   }
     else if(this.alarmSoundUser === "military"){
-      this.alarmSounds.militaryAlarm.pause()
+      this.alarmSounds.militaryAlarm.pause();
       this.alarmSounds.militaryAlarm.currentTime = 0;
     }
   },
-  alarmSoundOn: false
+  alarmSoundOn: false,
 }
 
- const clockTick = function() {
+const pageTitleNotification = {
+    currentTitle: document.title,
+    On: function(notification) {
+      document.title = notification
+    },
+    Off: function(){
+      document.title = this.currentTitle
+    }
+  }
+
+  const clockTick = function() {
 
   const date = new Date();
    Time.hour = date.getHours();
@@ -48,26 +58,12 @@ const Time = {
   document.getElementById('minute').innerHTML = ":" + Time.mins;
   document.getElementById('second').innerHTML = ":" + Time.secs;
 
-  // document.getElementById('hourInput').addEventListener('input', function (h){
-  //   h.target.value = h.target.value.replace(/^0+(?=\d)/,'');
-  //   if (hourInput.value > 23){
-  //     h.target.value = 23;
-  //   }
-  // })
-
   document.getElementById('hourInput').onblur = function (h){
     h.target.value = h.target.value.replace(/^0+(?=\d)/,'');
     if (hourInput.value > 23){
       h.target.value = 23;
     }
   }
-  
-  // document.getElementById('minuteInput').addEventListener('input', function (m){
-  //   m.target.value = m.target.value.replace(/^0+(?=\d)/,'');
-  //   if (minuteInput.value >= 60){
-  //     m.target.value = 59;
-  //   }
-  // })
 
   document.getElementById('minuteInput').onblur = function (m){
     m.target.value = m.target.value.replace(/^0+(?=\d)/,'');
@@ -80,6 +76,10 @@ const Time = {
 setInterval(clockTick, 100);
 
 const setAlarm = function() {
+  if(Time.alarmSoundOn){
+    window.alert("Turn off the current alarm first!")
+  }
+  else{
   const hourInputValue = document.getElementById('hourInput').value;
   const minuteInputValue = document.getElementById('minuteInput').value;
   
@@ -125,36 +125,34 @@ const setAlarm = function() {
 
   const alarmSound = document.getElementById('soundOpt');
   Time.alarmSoundUser = alarmSound.options[alarmSound.selectedIndex].value;
-
+  }
 }
 
 const ringAlarm = function() {
   if (Time.hour == Time.alarmHour && Time.mins == Time.alarmMinutes && Time.secs == Time.alarmSeconds){
     Time.alarmSoundOn = true;
-    document.title = "Alarm is Ringing!"
     if(Time.alarmSoundUser === "modern"){
-      // modInterv = setInterval(function() {Time.alarmSounds.modernAlarm.play()},1000);
       Time.alarmSounds.modernAlarm.play()
       Time.alarmSounds.modernAlarm.loop = true
       Time.alarmSounds.modernAlarm.volume = 0.2;
     }
     else if(Time.alarmSoundUser === "ck"){
-      // ckInterv = setInterval(function() {Time.alarmSounds.ckAlarm.play()},1000);
       Time.alarmSounds.ckAlarm.play()
       Time.alarmSounds.ckAlarm.loop = true
       Time.alarmSounds.ckAlarm.volume = 0.2;
     }
     else if(Time.alarmSoundUser === "military"){
-      // milInterv = setInterval(function() {Time.alarmSounds.militaryAlarm.play()},1000);
       Time.alarmSounds.militaryAlarm.play()
       Time.alarmSounds.militaryAlarm.loop = true
       Time.alarmSounds.militaryAlarm.volume = 0.2;
     }
+    pageTitleNotification.On("Alarm is Ringing!");
   }
 }
 
 const cancelAlarm = function() {
   if (Time.alarmSoundOn){
+    pageTitleNotification.Off()
     Time.alarmSoundUser === null;
     Time.alarmSoundOn = false;
     Time.cancelSound()
@@ -168,9 +166,25 @@ else {
 
 const snoozeAlarm = function() {
   if (Time.alarmSoundOn){
+    pageTitleNotification.Off()
     Time.alarmSoundOn = false;
-    Time.alarmMinutes = Time.alarmMinutes + 5
-    document.getElementById('alarmMinutes').innerHTML = Time.alarmMinutes;
+    if(Time.alarmMinutes < 10){
+      Time.alarmMinutes = parseInt(Time.alarmMinutes) + 5
+      if(Time.alarmMinutes < 10){
+       Time.alarmMinutes = "0" + Time.alarmMinutes    
+      }
+      
+    }
+    else if(Time.alarmMinutes > 59){
+      Time.alarmHour += 1
+      Time.alarmMinutes -= 60
+    }
+
+    else {
+      Time.alarmMinutes += 5
+    }
+
+    document.getElementById('alarmMinutes').innerHTML = ":" + Time.alarmMinutes;
     Time.cancelSound()
   }
   else {
@@ -179,17 +193,22 @@ const snoozeAlarm = function() {
 }
 
 const resetAlarm = function() {
-  Time.alarmHour = "--";
-  Time.alarmMinutes = "--";
-  Time.alarmSeconds = "--";
+  if(!Time.alarmSoundOn){
+    Time.alarmHour = "--";
+    Time.alarmMinutes = "--";
+    Time.alarmSeconds = "--";
 
-  document.getElementById('alarmHour').innerHTML = Time.alarmHour;
-  document.getElementById('alarmMinutes').innerHTML = Time.alarmMinutes;
-  document.getElementById('alarmSeconds').innerHTML = Time.alarmSeconds;
-  
-  const alarmRow = document.getElementsByClassName("alarmTime");
-  for (var i=0; i<alarmRow.length; i++){
-    alarmRow[i].style.color = "rgba(0, 0, 0, 0.2)";
+    document.getElementById('alarmHour').innerHTML = Time.alarmHour;
+    document.getElementById('alarmMinutes').innerHTML = Time.alarmMinutes;
+    document.getElementById('alarmSeconds').innerHTML = Time.alarmSeconds;
+    
+    const alarmRow = document.getElementsByClassName("alarmTime");
+    for (var i=0; i<alarmRow.length; i++){
+      alarmRow[i].style.color = "rgba(0, 0, 0, 0.2)";
+    }
+  }
+  else{
+    window.alert("Cancel alarm sound before resetting alarm")
   }
 }
 
